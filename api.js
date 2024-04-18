@@ -1,4 +1,3 @@
-// 17/04  criar dois novos endpoints
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
@@ -82,7 +81,20 @@ app.put('/tasks/:id/status/:status',(req,res)=>{
         }
     })
 })
-
+app.delete('/tasks/:id/delete',(req,res)=>{
+    const id=req.params.id;
+    connection.query('DELETE FROM tasks WHERE id =?',[id],(err,rows)=>{
+        if(!err){
+            if(rows.affectedRows>0){
+                res.json(functions.response('SUScesso','Task deleteada',rows.affectedRows,null));
+            }else{
+                res.json(functions.response('Atenção','Task não encontrada',0,null));
+            }
+        }else{
+            res.json(functions.response('Erro',err.message,0,null));
+        }
+    })
+})
 
 
 app.use((req,res)=>{

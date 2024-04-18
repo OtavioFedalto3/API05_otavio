@@ -4,6 +4,10 @@ function response(sts,msg,aftrows,data=null){
         message:msg,
         affected_rows:aftrows,
         data:data,
-        timestamp:new Date().getTime
+        timestamp:new Date().getTime()
     }
+}
+
+module.exports={
+    response
 }
